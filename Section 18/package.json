@@ -1,0 +1,14 @@
+{
+  "name": "section-18",
+  "version": "1.0.0",
+  "description": "NodeJS & Express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manish K",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
