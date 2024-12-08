@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+    background-color: rgb(233,215,207);
+    color: rgb(83,75,75)
+}
+
+h1 {
+    font-family: "Oswald", serif;
+    color: rgb(168,192,1);
+}
+
+p {
+    size:150px;
+    font-family: "Fira Sans", sans-serif;
+    color: rgb(1,168,192);
+}
+
+a {
+    size: 125px;
+    color: rgb(100,200,150);
+}
+
+a:hover {
+    text-decoration-line: overline;
+  }
+
+
+img {
+    border-radius: 30px;
+}

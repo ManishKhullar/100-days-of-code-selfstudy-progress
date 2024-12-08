@@ -1,0 +1,37 @@
+h1 {
+    font-size: 54px;
+    color: rgb(71, 62, 62);
+    margin: 12px 0;
+}
+
+a {
+    background-color: rgb(161, 1, 78);
+    color: white;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: rgb(180, 90,  12);
+    padding: 12px 24px 12px 24px;
+/*     Padding has 4 values - Top, Right, Bottom, left
+    Margin has 2/4 values - vertical, horizontal/ Top, Right, Bottom, Left */
+}
+
+ol{
+    list-style: none;
+    width: 500px;
+    margin: 36px auto 0 auto;
+    padding: 0;
+   /*  color: rgb(192,18,20);
+    list-style: georgian; */
+}
+
+li{
+    background-color: rgb(255, 157, 152);
+    margin: 32px;
+    padding: 16px;
+    border-radius: 6px;
+    /* border: 1px line rgb(220, 95, 0); */
+}
