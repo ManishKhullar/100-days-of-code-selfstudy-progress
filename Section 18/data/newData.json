@@ -1,0 +1,6 @@
+{
+    "username": "Max",
+    "age": 32,
+    "hobbies": ["Sports", "Cooking"],
+    "address": { "city": "Munich","street: "Some street 5"}
+}

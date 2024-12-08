@@ -14,4 +14,4 @@ function handleRequest(request, response){
 const server = http.createServer(handleRequest);
 server.listen(443);
 //port 443: SSL
-// console.log(data1);
+// console.log(http);
