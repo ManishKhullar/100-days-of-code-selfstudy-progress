@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Nisarg",
+    "address": "Karve Nagar",
+    "cuisine": "Konkani",
+    "website": "http://nisarg.com",
+    "description": "Fish Curry is served"
+  },
+  {
+    "name": "Nisarg Hotel",
+    "address": "Erandwane",
+    "cuisine": "Konkani",
+    "website": "https://www.nisarg.com",
+    "description": "Fish Curry is served!"
+  }
+]
