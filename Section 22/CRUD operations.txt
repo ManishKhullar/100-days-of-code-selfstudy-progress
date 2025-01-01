@@ -1,0 +1,54 @@
+SQL LEARNING
+
+SELECT SUM (id) FROM restaurants WHERE type = 'Italian' AND name > 'P';
+
+SELECT COUNT (*) FROM restaurants WHERE type = 'Italian' AND name > 'P';
+
+ALTER TABLE restaurants 
+ALTER COLUMN type TYPE varchar(225);
+
+UPDATE restaurants SET name = 'Web Dev Meals' WHERE id = 1;
+UPDATE type SET unique_id = 'German' WHERE unique_id = '1';
+
+DELETE FROM restaurants WHERE id = 1;
+
+--COmmand to create Foreign Key
+--? What is difference between using REFERENCE vs REFERENCES?
+
+CREATE TABLE Sales.TempSalesReason (
+    TempID INT NOT NULL,
+    Name NVARCHAR(50),
+    CONSTRAINT PK_TempSales
+        PRIMARY KEY NONCLUSTERED (TempID),
+    CONSTRAINT FK_TempSales_SalesReason FOREIGN KEY (TempID)
+        REFERENCES Sales.SalesReason(SalesReasonID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+ALTER TABLE restaurants ADD CONSTRAINT fk_type_id FOREIGN KEY (type_id) references type(unique_id), ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES address(unique_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE Sales.TempSalesReason
+ADD CONSTRAINT FK_TempSales_SalesReason FOREIGN KEY (TempID)
+REFERENCES Sales.SalesReason (SalesReasonID)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE;
+
+
+Table: Restaurants(UniqueID*, name, AddressID**, TypeID**)
+
+Table: Addresses (UniqueID*, Street, StreetNumber, City, PostalCode, Country)
+
+Table: Types (UniqueID*, Name)
+
+Table: Reviews(UniqueID*, ReviewerName, Rating, Text, Date, RestaurantID**)
+
+--The Database Engine also doesn't limit the number of FOREIGN KEY constraints owned by other tables that reference a specific table. However, the actual number of FOREIGN KEY constraints used is limited by the hardware configuration, and by the design of the database and application. A table can reference a maximum of 253 other tables and columns as foreign keys (outgoing references). SQL Server 2016 (13.x) and later versions increase the limit for the number of other tables and columns that can reference columns in a single table (incoming references), from 253 to 10,000. (Requires at least 130 compatibility level.) The increase has the following restrictions:
+--!    Greater than 253 foreign key references are supported for DELETE and UPDATE DML operations. MERGE operations aren't supported.
+--!    A table with a foreign key reference to itself is still limited to 253 foreign key references.
+--!    Greater than 253 foreign key references aren't currently available for columnstore indexes, or memory-optimized tables.
+
+--FOREIGN KEY constraints aren't enforced on temporary tables.
+-- If a foreign key is defined on a CLR user-defined type column, the implementation of the type must support binary ordering. For more information, see CLR User-Defined Types.
+-- A column of type varchar(max) can participate in a FOREIGN KEY constraint only if the primary key it references is also defined as type varchar(max).

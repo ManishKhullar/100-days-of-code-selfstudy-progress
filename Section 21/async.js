@@ -1,7 +1,6 @@
 const fs = require('fs');
 const fss = require('fs/promises');
 
-// const fileData = 4; //Not permitted
 function readFile(){
     let fileData;
         // const fileData = fs.readFileSync('data.json');//Permitted
@@ -10,8 +9,8 @@ function readFile(){
             if(error){
             //Do Something
             }
-            console.log('File Parsing done!');
             console.log(fileData.toString());
+            console.log('File Parsing done!');
         });
         console.log(fileData);
         console.log('Hi There');
@@ -80,6 +79,7 @@ readFile();
 // If the promise is rejected (i.e., an error occurs), the catch block catches the error. However, this error is not directly stored in fileData. You would need to explicitly assign the error to fileData (or another variable) if you wanted to capture it.
 // If the file can't be read for some reason (like if it doesn't exist), the await expression will throw an error. This is where the catch block comes in, which allows you to handle the error.
 // The error object will be captured in the catch block, but it doesn't automatically replace or return the value to fileData unless you explicitly assign it there. i.e. fileData = error;
+/*
 async function readFile(){
     let fileData;
     try{//try catch is not available/ functional in synchronous codes but it is available/functional in asynchronous codes
@@ -88,11 +88,12 @@ async function readFile(){
     catch(error){
         console.log(error);
     }
-    console.log('File Parsing Done!');
+    console.log('File Parsing Done!!!');
     console.log(fileData.toString());
-    console.log('Hi There');
+    console.log('Hi There!');
 
 }
 readFile();
+*/
 //in summary async await block allows you to write promise based code in a more readable way
 //asynchronous operation is an operation that is executed "in the background" without blocking other tasks.
