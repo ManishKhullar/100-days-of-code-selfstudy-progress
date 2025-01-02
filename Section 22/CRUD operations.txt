@@ -12,6 +12,18 @@ UPDATE type SET unique_id = 'German' WHERE unique_id = '1';
 
 DELETE FROM restaurants WHERE id = 1;
 
+--To check if record in child table has a corresponding record in parent table and is not ORPHANED
+SELECT *
+FROM [rpt].ReportLessonCompetency rlc
+WHERE NOT EXISTS
+(
+    SELECT 1 
+    FROM [rpt].TraineeGrade tg
+    WHERE tg.Id = rlc.Grade
+)
+SELECT * FROM restaurants r WHERE NOT EXISTS (SELECT 1 FROM address t WHERE r.address_id = t.unique_id);
+SELECT * FROM restaurants r WHERE NOT EXISTS (SELECT * FROM type t WHERE r.address_id = t.unique_id);
+
 --COmmand to create Foreign Key
 --? What is difference between using REFERENCE vs REFERENCES?
 
@@ -27,6 +39,14 @@ CREATE TABLE Sales.TempSalesReason (
 );
 
 ALTER TABLE restaurants ADD CONSTRAINT fk_type_id FOREIGN KEY (type_id) references type(unique_id), ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES address(unique_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+-- You can avoid verifying FOREIGN KEY constraints against existing data by using WITH NOCHECK.
+ALTER TABLE [rpt].ReportLessonCompetency WITH NOCHECK
+ADD CONSTRAINT [FK_Grade_TraineeGrade_Id]
+FOREIGN KEY (Grade) REFERENCES [rpt].TraineeGrade(Id)
+--I wouldn't recommend doing this as ignored constraint violations can cause an update to fail at a later point. You should clean up your data instead.
 
 
 ALTER TABLE Sales.TempSalesReason
@@ -52,3 +72,6 @@ Table: Reviews(UniqueID*, ReviewerName, Rating, Text, Date, RestaurantID**)
 --FOREIGN KEY constraints aren't enforced on temporary tables.
 -- If a foreign key is defined on a CLR user-defined type column, the implementation of the type must support binary ordering. For more information, see CLR User-Defined Types.
 -- A column of type varchar(max) can participate in a FOREIGN KEY constraint only if the primary key it references is also defined as type varchar(max).
+
+--WITH NOCHECK
+--The other option would be to create the foreign key with WITH NOCKECK. SQL Server will create the foreign key without verifying the existing data in the table. When you update/insert data in the child table, those records will still be checked. Consequently, your foreign key will be marked as untrusted and the query optimizer won't consider your constraint to generate an execution plan.
