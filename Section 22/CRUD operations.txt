@@ -1,7 +1,6 @@
 SQL LEARNING
 
 SELECT SUM (id) FROM restaurants WHERE type = 'Italian' AND name > 'P';
-
 SELECT COUNT (*) FROM restaurants WHERE type = 'Italian' AND name > 'P';
 
 ALTER TABLE restaurants 
@@ -38,9 +37,10 @@ CREATE TABLE Sales.TempSalesReason (
     ON UPDATE CASCADE
 );
 
+CREATE TABLE reviews (unique_id  SERIAL PRIMARY KEY, reviewer_name VARCHAR(225) NOT NULL UNIQUE, rating NUMERIC NOT NULL, text VARCHAR(255), date DATE NOT NULL, restaurant_id INTEGER,  FOREIGN KEY (restaurant_id) REFERENCES restaurants(unique_id) ON DELETE CASCADE ON UPDATE CASCADE);
+SELECT * FROM restaurants;
+
 ALTER TABLE restaurants ADD CONSTRAINT fk_type_id FOREIGN KEY (type_id) references type(unique_id), ADD CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES address(unique_id) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
 
 -- You can avoid verifying FOREIGN KEY constraints against existing data by using WITH NOCHECK.
 ALTER TABLE [rpt].ReportLessonCompetency WITH NOCHECK
@@ -48,13 +48,14 @@ ADD CONSTRAINT [FK_Grade_TraineeGrade_Id]
 FOREIGN KEY (Grade) REFERENCES [rpt].TraineeGrade(Id)
 --I wouldn't recommend doing this as ignored constraint violations can cause an update to fail at a later point. You should clean up your data instead.
 
-
 ALTER TABLE Sales.TempSalesReason
 ADD CONSTRAINT FK_TempSales_SalesReason FOREIGN KEY (TempID)
 REFERENCES Sales.SalesReason (SalesReasonID)
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
+--TO check constraint name 
+SELECT con.conname as constraint_name, con.contype as constraint_type, pg_get_constraintdef(con.oid) as constraint_definition FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE rel.relname = 'restaurants';
 
 Table: Restaurants(UniqueID*, name, AddressID**, TypeID**)
 
