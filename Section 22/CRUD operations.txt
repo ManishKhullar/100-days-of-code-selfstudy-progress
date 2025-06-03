@@ -5,6 +5,7 @@ SELECT COUNT (*) FROM restaurants WHERE type = 'Italian' AND name > 'P';
 
 ALTER TABLE restaurants 
 ALTER COLUMN type TYPE varchar(225);
+ALTER TABLE type RENAME TO types;
 
 UPDATE restaurants SET name = 'Web Dev Meals' WHERE id = 1;
 UPDATE type SET unique_id = 'German' WHERE unique_id = '1';
@@ -56,6 +57,13 @@ REFERENCES Sales.SalesReason (SalesReasonID)
 
 --TO check constraint name 
 SELECT con.conname as constraint_name, con.contype as constraint_type, pg_get_constraintdef(con.oid) as constraint_definition FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE rel.relname = 'restaurants';
+
+ALTER TABLE restaurants ADD CONSTRAINT fk2_type_id FOREIGN KEY (type_id) REFERENCES type(unique_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--TODO:ALTER TABLE type RENAME TO types;
+ALTER TABLE restaurants DROP CONSTRAINT fk2_type_id;
+ALTER TABLE restaurants ALTER type_id TYPE integer USING type_id::integer;
+ALTER TABLE types ALTER unique_id TYPE integer USING unique_id::integer;
 
 Table: Restaurants(UniqueID*, name, AddressID**, TypeID**)
 
